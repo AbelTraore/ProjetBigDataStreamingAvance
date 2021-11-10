@@ -4,13 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>Projet Big Data Streaming Avance</artifactId>
+    <groupId>org.edition.abel</groupId>
+    <artifactId>PBGS_avancee</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+
+        <spark.core.version>2.2.0</spark.core.version>
+        <spark.sql.version>2.2.0</spark.sql.version>
+        <spark.langage.version>2.11.8</spark.langage.version>
+        <spark.streaming.kafka.version>2.2.0</spark.streaming.kafka.version>
+        <kafka.client.version>2.1.0</kafka.client.version>
+        <twitter.hbc.client.version>2.2.0</twitter.hbc.client.version>
     </properties>
 
 
@@ -20,7 +28,7 @@
     <dependency>
         <groupId>org.scala-lang</groupId>
         <artifactId>scala-library</artifactId>
-        <version>2.11.8</version>
+        <version>${spark.langage.version}</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
@@ -42,12 +50,56 @@
     <dependency>
         <groupId>org.apache.spark</groupId>
         <artifactId>spark-core_2.11</artifactId>
+        <version>${spark.core.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs -->
+    <dependency>
+        <groupId>org.apache.hadoop</groupId>
+        <artifactId>hadoop-hdfs</artifactId>
+        <version>3.2.1</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming -->
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-streaming_2.11</artifactId>
         <version>2.2.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-sql -->
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-sql_2.11</artifactId>
+        <version>${spark.sql.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
+        <version>${spark.streaming.kafka.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+    <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>kafka-clients</artifactId>
+        <version>${kafka.client.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.twitter/hbc-core -->
+    <dependency>
+        <groupId>com.twitter</groupId>
+        <artifactId>hbc-core</artifactId>
+        <version>${twitter.hbc.client.version}</version>
     </dependency>
 
 
 
+
 </dependencies>
+
+
 
 
 </project>
