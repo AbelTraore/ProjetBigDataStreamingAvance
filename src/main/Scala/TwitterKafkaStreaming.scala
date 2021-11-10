@@ -9,6 +9,9 @@ import java.util.Collections
 import scala.collection.JavaConverters._
 import KafkaStreaming._
 import org.apache.log4j.{LogManager, Logger}
+import twitter4j._
+import twitter4j.conf.{Configuration, ConfigurationBuilder}
+
 
 //import scala.tools.nsc.interactive.Logger
 
@@ -74,4 +77,72 @@ def ProducerTwitterKafkaHBC (CONSUMER_KEY : String,
 
 }
 
-}
+  /**
+   *
+   * @param CONSUMER_KEY
+   * @param CONSUMER_SECRET
+   * @param ACCESS_TOKEN
+   * @param TOKEN_SECRET
+   * @param requete
+   * @param KafkaBootStrapServers
+   * @param topic
+   */
+  def ProducerTwitter4JKafka (CONSUMER_KEY : String,
+                               CONSUMER_SECRET : String,
+                               ACCESS_TOKEN : String,
+                               TOKEN_SECRET : String,
+                              requete : String,
+                               KafkaBootStrapServers : String,
+                               topic : String ) : Unit = {
+
+    val queue : BlockingQueue[Status] = new LinkedBlockingQueue[Status](10000)
+    val twitterConf : ConfigurationBuilder = new ConfigurationBuilder()
+    twitterConf
+      .setJSONStoreEnabled(true)
+      .setDebugEnabled(true)
+      .setOAuthConsumerKey(CONSUMER_KEY)
+      .setOAuthConsumerSecret(CONSUMER_SECRET)
+      .setOAuthAccessToken(ACCESS_TOKEN)
+      .setOAuthAccessTokenSecret(TOKEN_SECRET)
+
+    val twitterStream = new  TwitterStreamFactory(twitterConf.build()).getInstance()
+
+    val listener = new  StatusListener {
+      override def onStatus(status: Status): Unit = {
+
+        trace_client_streaming.info("événement d'ajout de tweet détecté. Tweet complet : " + status.getText)
+        queue.put(status)
+        getProducerKafka(KafkaBootStrapServers, topic, status.getText) //première méthode
+      }
+
+      override def onDeletionNotice(statusDeletionNotice: StatusDeletionNotice): Unit = {}
+      override def onTrackLimitationNotice(i: Int): Unit = {}
+      override def onScrubGeo(l: Long, l1: Long): Unit = {}
+      override def onStallWarning(stallWarning: StallWarning): Unit = {}
+
+      override def onException(e: Exception): Unit = {
+        trace_client_streaming.error("Erreur générée par Twitter :" + e.printStackTrace())
+      }
+
+    }
+
+    twitterStream.addListener(listener)
+    //twitterStream.sample() //déclenche la réception des tweets
+
+    val query = new  FilterQuery().track(requete)
+    twitterStream.filter(query) //filtre les données
+
+    //2ème méthode
+   // while (true) {
+   //   val tweet: Status = queue.poll(15, TimeUnit.SECONDS)
+   //   getProducerKafka(KafkaBootStrapServers, topic, tweet.getText)
+   // }
+    getProducerKafka(KafkaBootStrapServers, "", "").close()
+    twitterStream.shutdown()
+
+    }
+
+
+  }
+
+
