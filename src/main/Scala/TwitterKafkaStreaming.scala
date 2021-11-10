@@ -78,7 +78,8 @@ def ProducerTwitterKafkaHBC (CONSUMER_KEY : String,
 }
 
   /**
-   *
+   * Ce client Twitter4J récupère les données streaming de Twitter. Il est un peu différent du client HBC,
+   * car il est plus vaste et plus complet
    * @param CONSUMER_KEY
    * @param CONSUMER_SECRET
    * @param ACCESS_TOKEN
