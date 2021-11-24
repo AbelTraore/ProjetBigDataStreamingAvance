@@ -1,4 +1,5 @@
 import org.apache.hadoop.fs.{FileSystem, Path}
+import org.apache.log4j.{LogManager, Logger}
 import org.apache.spark.SparkConf
 
 import java.util.logging.LogManager
@@ -7,12 +8,13 @@ import org.apache.spark.streaming._
 import org.apache.spark.streaming.StreamingContext._
 import org.apache.spark.SparkContext
 
+
 object SparkBigDataS {
 
   var ss: SparkSession = null
   var spConf: SparkConf = null
 
-
+ // private var trace_log : Logger = LogManager.getLogger("Log_Console")
 
 
   def main(args: Array[String]) : Unit = {
@@ -59,12 +61,12 @@ object SparkBigDataS {
   def getSparkStreamingContext(Env: Boolean = true, duree_batch: Int): StreamingContext = {
 
     if (Env) {
-      spConf = new SparkConf().setMaster("LocalHost[*]")
+      spConf = new SparkConf().setMaster("local[*]")
         .setAppName("Mon application streaming")
     }else {
       spConf = new SparkConf().setAppName("Mon application streaming")
     }
-
+   // trace_log.info(s"la durée du micro-batch Spark est définie à : ${duree_batch secondes}")
     val ssc : StreamingContext = new StreamingContext(spConf, Seconds(duree_batch))
 
     return ssc
