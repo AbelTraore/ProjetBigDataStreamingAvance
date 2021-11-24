@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer._
 import org.apache.kafka.common.protocol._
 import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.serialization._
+import org.apache.kafka.common._
 import org.apache.spark.streaming.kafka010.KafkaUtils._
 import org.apache.spark.streaming.kafka010.LocationStrategies._
 import org.apache.spark.streaming.kafka010.ConsumerStrategies._
