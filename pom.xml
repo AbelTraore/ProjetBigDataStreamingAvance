@@ -179,7 +179,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>ProducerKafka_Prod</mainClass>
+                            <mainClass>ConsumerKafka_Prod</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
