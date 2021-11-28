@@ -41,7 +41,17 @@ object KafkaStreaming {
 
 var KafkaParam : Map[String, Object] = Map(null, null)
 var ConsommateurKafka : InputDStream[ConsumerRecord[String, String]] = null
-//private var trace_kafka : Logger = LogManager.getLogger("Log_Console")
+  //private var trace_kafka : Logger = LogManager.getLogger("Log_Console")
+
+  /**
+   * cette fonction récupère les paramètres de connexion à un cluster kafka
+   * @param kafkaBootStrapServers : adresse IP (avec port) des agents du cluster kafka
+   * @param KafkaConsumerGroupId : c'est l'ID du consumer group
+   * @param KafkaConsumerReadOrder : l'ordre de lecture du log
+   * @param KafkaZookeeper : l'adresse IP (avec port) de l'ensemble zookeeper
+   * @param KerberosName : le nom du service kerberos
+   * @return : la fonction renvoie une table clé-valeur des paramètres de connexion à un cluster kafka spécifique
+   */
 
   def getKafkaSparkConsumerParams (kafkaBootStrapServers : String,
                       KafkaConsumerGroupId : String,
@@ -137,7 +147,7 @@ def getKafkaProducerParams(KafkaBootStrapServers : String) : Properties = {
   def getKafkaConsumerParams(kafkaBootStrapServers : String,
                              KafkaConsumerGroupId : String) : Properties = {
     val props : Properties = new Properties()
-    props.put("boostrap.servers", kafkaBootStrapServers)
+    props.put("bootstrap.servers", kafkaBootStrapServers)
     props.put("auto.offset.reset", "latest")
     props.put("group.id", KafkaConsumerGroupId)
     props.put("enable.auto.commit", false: java.lang.Boolean)

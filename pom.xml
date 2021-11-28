@@ -17,12 +17,14 @@
         <spark.sql.version>2.2.0</spark.sql.version>
         <spark.langage.version>2.11.8</spark.langage.version>
         <spark.streaming.version>2.2.0</spark.streaming.version>
-        <spark.streaming.kafka.version>2.2.0</spark.streaming.kafka.version>
+       <!-- <spark.streaming.kafka.version>2.2.0</spark.streaming.kafka.version> -->
+        <spark.streaming.kafka.version>2.3.0</spark.streaming.kafka.version>
         <kafka.client.version>2.1.0</kafka.client.version>
         <twitter.hbc.client.version>2.2.0</twitter.hbc.client.version>
         <twitter4j.version>4.0.4</twitter4j.version>
         <spark.streaming.twitter.version>1.6.2</spark.streaming.twitter.version>
-        <jackson.databind.version>2.11.3</jackson.databind.version>
+        <!-- <jackson.databind.version>2.11.3</jackson.databind.version> -->
+        <jackson.databind.version>2.6.7.3</jackson.databind.version>
 
     </properties>
 
@@ -179,7 +181,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>ConsumerKafka_Prod</mainClass>
+                            <mainClass>ConsumerKafkaSpark_Prod</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
