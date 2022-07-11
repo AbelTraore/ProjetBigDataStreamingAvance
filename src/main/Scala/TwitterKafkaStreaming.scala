@@ -62,7 +62,7 @@ def ProducerTwitterKafkaHBC (CONSUMER_KEY : String,
                              topic : String ) : Unit = {
   val queue : BlockingQueue[String] = new LinkedBlockingQueue[String](1000)
 
-  val auth : Authentication = new  OAuth1(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, TOKEN_SECRET)
+  val auth : Authentication = new  OAuth1(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, TOKEN_SECRET) //informations pour se connecter à Twitter
 
   val endp : StatusesFilterEndpoint = new StatusesFilterEndpoint()
   endp.trackTerms(Collections.singletonList(liste_hashtags))
@@ -100,6 +100,10 @@ def ProducerTwitterKafkaHBC (CONSUMER_KEY : String,
 }
 
   /**
+   * consumer_key = "XFH67NDa9Bl6YvNrVWiZfhzf8"
+   * consumer_secret = "7NoVKfVZiUttkrTtWQ6q5DNmiRNkTj9J1zMmCtc7u3FmrK8HwY"
+   * access_token = "4914583265-y3ccdqXTNMgLO84L2kDze0XTpJq8Q2mfwSIvFJw"
+   * access_token_secret = "9P88KrTdpMImpkLbm9ozNoRhwN3RwnYbgsYSPP0P5Si6O"
    * Ce client Twitter4J récupère les données streaming de Twitter. Il est un peu différent du client HBC,
    * car il est plus vaste et plus complet
    * @param CONSUMER_KEY
